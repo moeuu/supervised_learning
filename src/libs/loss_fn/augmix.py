@@ -38,7 +38,7 @@ def apply_op(image, op, severity):
   return np.asarray(pil_img) / 255.
 
 
-def augment_and_mix(image, op, severity):
+def augment_and_mix(image, preprocess):
   """Perform AugMix augmentations and compute mixture.
   Args:
     image: Raw input image as float32 np.ndarray of shape (h, w, c)
@@ -56,11 +56,10 @@ def augment_and_mix(image, op, severity):
   depth=-1
   alpha=1.
   
-  ws = np.float32(
-      np.random.dirichlet([alpha] * width))
+  ws = np.float32(np.random.dirichlet([1] * width))
   m = np.float32(np.random.beta(alpha, alpha))
 
-  mix = np.zeros_like(image)
+  mix = torch.zeros_like(preprocess(image))
   for i in range(width):
     image_aug = image.copy()
     d = depth if depth > 0 else np.random.randint(1, 4)
