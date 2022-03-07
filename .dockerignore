@@ -1,0 +1,9 @@
+**/*.jpg
+**/*.jpeg
+**/*.png
+**/*.JPG
+**/*.onnx
+**/*.tar
+**/*.zip
+**/*.pth
+**/*.prm
