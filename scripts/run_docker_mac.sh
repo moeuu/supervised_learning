@@ -1,0 +1,1 @@
+docker container run -it -v $PWD:/project -p 8888:8888 docker-mac bash

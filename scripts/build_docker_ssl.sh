@@ -1,0 +1,1 @@
+docker image build -t docker-ssl dockerfiles/Dockerfile.ssl .

@@ -1,0 +1,25 @@
+FROM python:3.8.10-slim
+
+WORKDIR /project
+
+RUN apt-get update
+RUN apt-get install -y libopencv-dev libgl1-mesa-dev
+
+COPY ./requirements.txt /projext
+
+RUN pip install -r requirements.txt
+RUN pip install opencv-python onnxruntime
+
+RUN jupyter notebook --generate-config
+
+#jupyter-notebook上のホワイトリストを許可 
+RUN echo "c.NotebookApp.ip = '0.0.0.0'" >> ~/.jupyter/jupyter_notebook_config.py
+
+#初期ディレクトリの設定
+RUN echo "c.NotebookApp.notebook_dir = '/project'" >> ~/.jupyter/jupyter_notebook_config.py
+
+#パスワード認証 or Token認証を無効化
+RUN echo "c.NotebookApp.token = ''" >> ~/.jupyter/jupyter_notebook_config.py
+RUN echo "c.NotebookApp.password = ''" >> ~/.jupyter/jupyter_notebook_config.py
+
+CMD ["/bin/bash"]
